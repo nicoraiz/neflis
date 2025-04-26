@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ver Película</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <section class="video-player">
+    <video 
+      id="reproductor"
+      poster="" 
+      autoplay 
+      controls 
+      controlsList="nodownload noremoteplayback" 
+      disablePictureInPicture 
+      oncontextmenu="return false;"
+    >
+      <source id="fuente" src="" type="video/mp4" />
+      Tu navegador no soporta el video.
+    </video>
+    <div class="player-info">
+      <h1 id="titulo">Cargando...</h1>
+      <p id="descripcion"></p>
+    </div>
+  </section>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const peliId = params.get('pelicula');
+
+    const peliculas = {
+      interestelar: {
+        titulo: "Interestelar (2014)",
+        descripcion: "Una odisea espacial que trasciende el tiempo y el amor.",
+        video: "movies/Interestelar (2014) 1080P.mp4",
+        poster: "media/banner-de-interstellar-original.jpg"
+      },
+      coraline: {
+        titulo: "Coraline (2009)",
+        descripcion: "Una puerta secreta. Un mundo alternativo. Y un oscuro secreto.",
+        video: "movies/Coraline y la puerta secreta.mp4",
+        poster: "media/coraline-banner.jpg"
+      },
+      toystory4: {
+        titulo: "Toy Story 4 [2019]",
+        descripcion: "Una nueva aventura. Viejos amigos. Y un destino que nunca imaginaron.",
+        video: "movies/Toy Story 4 - Español.mp4",
+        poster: "media/toy-story-banner-4-version2.jpg"
+      }
+      // podés seguir agregando más películas
+    };
+
+    const peli = peliculas[peliId];
+
+    if (peli) {
+      document.getElementById('fuente').src = peli.video;
+      document.getElementById('reproductor').poster = peli.poster;
+      document.getElementById('titulo').textContent = peli.titulo;
+      document.getElementById('descripcion').textContent = peli.descripcion;
+      document.getElementById('reproductor').load();
+    } else {
+      document.body.innerHTML = '<h2 style="color:white; text-align:center;">Película no encontrada.</h2>';
+    }
+  </script>
+</body>
+</html>
